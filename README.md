@@ -7,7 +7,7 @@ that involves multiplying
 radiometrically corrected image pixels by the appropriate absolute radiometric 
 calibration factor (also referred to as a K factor) to get band-integrated 
 radiance [W-m-2-sr-1] and then dividing the result by the appropriate effective 
-bandwidth to get spectral radiance [W-m-2-sr-1-μm-1]._ (Updike, 2010)
+bandwidth to get spectral radiance [W-m-2-sr-1-μm-1]_ (Updike, 2010).
 
 For the moment, the module requires as an input the acquisition's date and time 
 formatted as a UTC string OR the Day-of-Year (Julian Day), the (mean) Sun 
