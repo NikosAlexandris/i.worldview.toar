@@ -7,25 +7,26 @@ MODULE:         i.worldview.toar
 AUTHOR:         Nikos Alexandris <nik@nikosalexandris.net>
                 Converted from a bash shell script | Trikala, November 2014
 
-
 PURPOSE:        Converting WorldView2 DN values to Spectral Radiance or
                     Reflectance
 
-                From the document: ------------------------------------------
-                Whether the final bit depth is 16 or 8 bits, the goal of the
+
+                From the document:
+
+                << Whether the final bit depth is 16 or 8 bits, the goal of the
                 radiometric correction, other than minimize image artifacts,
                 is to scale all image pixels to top-of-atmosphere spectral
                 radiance so that one absolute calibration factor can be applied
                 to all pixels in a given band.
-                -------------------------------------------------------------
+                                      - - - - - - - - - -
                 The absolute radiometric calibration factor is dependent on the
                 specific band, as well as the TDI exposure level, line rate,
                 pixel aggregration, and bit depth of the product. Based on
                 these parameters, the appropriate value is provided in the
                 .IMD file. For this reason, care should be taken not to mix
                 absolute radiometric calibration factors between products that
-                might have different collection conditions.
-                -------------------------------------------------------------
+                might have different collection conditions. >>
+
 
                 Spectral Radiance -------------------------------------------
 
@@ -41,6 +42,7 @@ PURPOSE:        Converting WorldView2 DN values to Spectral Radiance or
                 [countsor  or  Digital Numbers]
                 Δ(λ|Band): effective bandwidth [μm] for a given band.
 
+
                 Planetary Reflectance ---------------------------------------
 
                     ρ(p) = π x L(λ) x d^2 / ESUN(λ) x cos(θ(S))
@@ -49,14 +51,16 @@ PURPOSE:        Converting WorldView2 DN values to Spectral Radiance or
                 - ρ: Unitless Planetary Reflectance
                 - π: Mathematical constant
                 - L(λ): Spectral Radiance from equation (1)
-                - d: Earth-Sun distance in astronomical units [calculated using
-                AcquisitionTime class]
+                - d: Earth-Sun distance in astronomical units
+                    [calculated using AcquisitionTime class]
 
 
                 Sources -----------------------------------------------------
 
-                Radiometric Use of WorldView-2 Imagery, Technical Note (2010),
-                by Todd Updike & Chris Comp
+                - Radiometric Use of WorldView-2 Imagery, Technical Note (2010),
+                by Todd Updike & Chris Comp.
+
+                - <http://landsat.usgs.gov/how_is_radiance_calculated.php>
 
 
  COPYRIGHT:    (C) 2014 by the GRASS Development Team
@@ -143,8 +147,8 @@ import os
 import sys
 sys.path.insert(1, os.path.join(os.path.dirname(sys.path[0]),
                                 'etc', 'i.worldview.toar'))
-
 import atexit
+
 import grass.script as grass
 from grass.pygrass.modules.shortcuts import general as g
 from grass.pygrass.raster.abstract import Info
@@ -306,16 +310,7 @@ def main():
         # Band dependent metadata for Spectral Radiance
         # -------------------------------------------------------------------
 
-#        # which Pan TDI level?
-#        if band == 'Pan':
-#            band_key = band + tdi
-#            g.message("\n|* Processing the Panchromatic band (TDI level: %s)"
-#                      % tdi, flags='i')
-#        else:
-#            band_key = band
-#            # some echo...
-        g.message("\n|* Processing the %s band"
-                      % band, flags='i')
+        g.message("\n|* Processing the %s band" % band, flags='i')
 
         # Why is this necessary?  Any function to remove the mapsets name?
         if '@' in band:
